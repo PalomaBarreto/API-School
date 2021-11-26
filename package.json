@@ -1,0 +1,27 @@
+{
+  "name": "api-school",
+  "version": "1.0.0",
+  "description": "API Rest",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PalomaBarreto/API-School.git"
+  },
+  "author": "Paloma Barreto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PalomaBarreto/API-School/issues"
+  },
+  "homepage": "https://github.com/PalomaBarreto/API-School#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
