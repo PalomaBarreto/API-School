@@ -7,8 +7,8 @@ const port = 3000
 
 //importando controllers
 
-//importanto o bancdo de dados
-const bd = require('./database/sqlite-db')
+//importanto o banco de dados
+const db = require('./database/sqlite-db')
 
 //middlewares
 app.use(express.json())
