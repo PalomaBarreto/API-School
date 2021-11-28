@@ -3,9 +3,10 @@ const app = express()
 
 const cors = require('cors')
 
-const port = 3000
+const port = 3003
 
-//importando controllers
+//importando controller
+const students = require('./controller/students-controller')
 
 //importanto o banco de dados
 const db = require('./database/sqlite-db')
@@ -17,6 +18,9 @@ app.use((req, res, next)=>
   console.log('middleware ok')
   next()
 })
+
+//rota da entidade
+students(app, db)
 
 app.listen(port, ()=>
 {

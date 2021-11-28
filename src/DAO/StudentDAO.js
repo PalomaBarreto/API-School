@@ -60,11 +60,11 @@ class StudentDAO
 
   getById(id)
   {
-    const SELECT_BY_ID = `SELECT * FROM STUDENTS WHERE ID = ?`
+    const query = `SELECT * FROM STUDENTS WHERE ID = ?`
 
     return new Promise((resolve, reject)=>
     {
-      this.db.all(SELECT_BY_ID, id, (error, rows)=>
+      this.db.all(query, id, (error, rows)=>
       {
         if (error)
         {
