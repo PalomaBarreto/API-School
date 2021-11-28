@@ -5,6 +5,7 @@ const student = (app,db)=>
 {
   const newStudentDAO = new StudentDAO(db)
 
+  //rota para buscar todos os cadastros
   app.get('/students', async (req, res)=>
   {
     try
@@ -19,12 +20,13 @@ const student = (app,db)=>
     }
   })
 
+  //rota para cadastrar um novo aluno
   app.post('/students', async (req, res)=>
   {
     try
     {
       const body = req.body
-      const newStudent = new Student(body.name, body.birthDate, body.CPF, body.email, body.career)
+      const newStudent = new Student(body.name, body.birthDate, body.CPF, body.email, body.career, body.registrationDate)
 
       //lógica de inserção
       const resp = await newStudentDAO.insertStudent(newStudent)
@@ -40,7 +42,7 @@ const student = (app,db)=>
     }
   })
 
-  //get único
+  //rota que encontra um cadastro através de um id; get único
   app.get('/students/:id', async (req, res)=>
   {
     const id = req.params.id
@@ -58,6 +60,7 @@ const student = (app,db)=>
 
   })
 
+  //rota para deletar um cadastro
   app.delete('/students/:id', async (req, res)=>
   {
     const id = parseInt(req.params.id)
@@ -77,12 +80,13 @@ const student = (app,db)=>
     }
   })
 
+  //rota para atualizar um cadastro antigo
   app.put('/students/:id', async (req, res)=>
   {
     const id = req.params.id
     const body = req.body
 
-    //lógica para atualizar
+    //lógica
     try
     {
       const respGet = await newStudentDAO.getById(id)
@@ -96,7 +100,8 @@ const student = (app,db)=>
           body.birthDate || beforeUpdate.BIRTHDATE,
           body.CPF || beforeUpdate.CPF,
           body.email || beforeUpdate.EMAIL,
-          body.career || beforeUpdate.CAREER
+          body.career || beforeUpdate.CAREER,
+          body.registrationDate || beforeUpdate.REGISTRATIONDATE
         )
 
         const resp = await newStudentDAO.updateStudent(id, updatedStudent)

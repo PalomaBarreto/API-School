@@ -5,11 +5,14 @@ class StudentDAO
     this.db = db
   }
 
+  //método para mostrar todos os cadastros de alunos
   getAllStudents()
-  {
+  {    
+    const query = 'SELECT * FROM STUDENTS'
+
     return new Promise((resolve, reject)=>
     {
-      this.db.all('SELECT * FROM STUDENTS', (error, rows)=>
+      this.db.all(query, (error, rows)=>
       {
         if (error)
         {
@@ -32,11 +35,15 @@ class StudentDAO
     })
   }
 
+  //método para inserir um novo cadastro de aluno
   insertStudent(newStudent)
   {
+    const query = 'INSERT INTO STUDENTS (NAME, BIRTHDATE, CPF, EMAIL, CAREER, REGISTRATIONDATE) VALUES (?,?,?,?,?,?)'
+    const insert = [newStudent.name, newStudent.birthDate, newStudent.CPF, newStudent.email, newStudent.career, newStudent.registrationDate]
+
     return new Promise((resolve, reject)=>
     {
-      this.db.run('INSERT INTO STUDENTS (NAME, BIRTHDATE, CPF, EMAIL, CAREER) VALUES (?,?,?,?,?)', [newStudent.name, newStudent.birthDate, newStudent.CPF, newStudent.email, newStudent.career], (error)=>
+      this.db.run(query, insert, (error)=>
       {
         if (error)
         {
@@ -58,6 +65,7 @@ class StudentDAO
     })
   }
 
+  //método para buscar um cadastro através do id
   getById(id)
   {
     const query = `SELECT * FROM STUDENTS WHERE ID = ?`
@@ -86,6 +94,7 @@ class StudentDAO
     })
   }
 
+  //método para deletar um cadastro de aluno através do id
   async deleteStudent(id)
   {
     try
@@ -94,11 +103,11 @@ class StudentDAO
 
       if (student.req.length)
       {
-        const del = `DELETE FROM STUDENTS WHERE ID = ?`
+        const query = `DELETE FROM STUDENTS WHERE ID = ?`
 
         return new Promise((resolve, reject)=>
         {
-          this.db.run(del, id, (error)=>
+          this.db.run(query, id, (error)=>
           {
             if (error)
             {
@@ -126,18 +135,20 @@ class StudentDAO
     }
   }
 
+  //método para atualizar um cadastro
   async updateStudent(id, newStudent)
   {
     try
     {
-      const up = `UPDATE STUDENTS SET NAME = ?, BIRTHDATE = ?, CPF = ?, EMAIL = ?, CAREER = ?
-      WHERE ID = ? `
+      const query = `UPDATE STUDENTS SET NAME = (?), BIRTHDATE = (?), CPF = (?), EMAIL = (?), CAREER = (?), REGISTRATIONDATE = (?)
+      WHERE ID = (?) `
+      const update = [newStudent.name, newStudent.birthDate, newStudent.CPF, newStudent.email, newStudent.career, newStudent.registrationDate, id]
 
       return new Promise((resolve, reject)=>
       {
-        this.db.run(up, [newStudent.name, newStudent.birthDate, newStudent.CPF, newStudent.email, newStudent.career, id], (error)=>
+        this.db.run(query, update, (error)=>
         {
-          if (condition)
+          if (error)
           {
             reject(error)
           }
