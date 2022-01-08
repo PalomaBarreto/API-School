@@ -3,7 +3,7 @@ const app = express()
 
 const cors = require('cors')
 
-const port = 3003 || process.env.PORT
+const port = process.env.PORT || 3003
 
 //importando controller
 const students = require('./controller/students-controller')
