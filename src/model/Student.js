@@ -3,7 +3,7 @@ class Student
   constructor(name, birthDate, CPF, email, career, registrationDate)
   {
     //chamada para validar dados
-    this.validation(name, CPF, email)
+    this.validation(name, CPF, email, career)
     
     this.name = name   
     this.birthDate = birthDate
@@ -14,18 +14,19 @@ class Student
   }
   
   
-  validation(name, CPF, email)
+  validation(name, CPF, email, career)
   {
     this.verifyName(name)
     this.verifyCPF(CPF)
     this.verifyEmail(email)
+    this.verifyCareer(career)
   }
   
   verifyName(name)
   {
     if (typeof name !== 'string')
     {
-      throw new Error('Precisa ser uma string')
+      throw new Error('Nome inválido')
     }
     else
     {
@@ -55,6 +56,18 @@ class Student
     else
     {
       this.email
+    }
+  }
+
+  verifyCareer(career)
+  {
+    if (typeof career !== 'string')
+    {
+      throw new Error('Curso inválido')
+    }
+    else
+    {
+      this.career = career
     }
   }
 }
